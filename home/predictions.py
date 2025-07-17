@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image 
 from skimage import io
 import tensorflow as tf
+from home.utils.model_loader import get_model
 # logging.disable(logging.WARNING)
 # os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
@@ -24,7 +25,8 @@ def preprocess_img(img_path: str, mask: bool = False, resize_shape=(256, 256), n
 
 
 
-def bt_predict(img_path, model, seg_model=None):
+def bt_predict(img_path):
+    model = get_model()
     # First predicting if there is Tumor or not
     img = preprocess_img(img_path=img_path, mask=False)
     clf_pred = model.predict(img)
