@@ -35,7 +35,7 @@ body {
 
 .container {
   width: 254px;
-  height: 233px;
+  height: 300px;
   padding: 40px;
   background-color: #f3fbfa;
   border-radius: 0px;
@@ -84,6 +84,35 @@ input[type="submit"]:hover {
   background-color: rgba(147, 214, 208, 0.7);
 }
 
+.demo-credentials {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.demo-credentials p {
+  margin-bottom: 5px;
+}
+
+.demo-credentials ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.demo-credentials li {
+  margin-bottom: 3px;
+}
+
+.demo-credentials code {
+  background-color: #e8f4f8;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+}
+
 
 .admin-login-link {
       text-align: center;
@@ -111,6 +140,15 @@ input[type="submit"]:hover {
       <!-- <button type="submit" >Login</button> -->
       <input type="submit" value="Login">
     </form>
+
+    <div class="demo-credentials">
+      <p><strong>Demo Credentials:</strong></p>
+      <ul>
+        <li>Username: <code>kdc</code></li>
+        <li>Password: <code>kurlakdc</code></li>
+      </ul>
+    </div>
+
     <div class="admin-login-link">
       <a href="/admin">Admin Login</a>
     </div>

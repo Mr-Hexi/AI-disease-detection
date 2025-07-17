@@ -28,9 +28,9 @@ def handle_login(request):
         loginusername = request.POST['username']
         loginpassword = request.POST['password']
 
-        # user = authenticate(username=loginusername, password=loginpassword)
+        user = authenticate(username=loginusername, password=loginpassword)
         if user is not None:   
-            # login(request, user)  
+            login(request, user)  
             messages.success(request, "Successfully Logged In")
             return redirect('home')
         else:
