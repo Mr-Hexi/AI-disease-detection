@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .container {
+    margin: 70px auto 0;
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .container .title {
+    text-align: center;
+    color: black;
+    font-size: 25px;
+    font-weight: 600;
+    position: relative;
+    font-size: 50px; /* Consider if this should be smaller */
+    padding-bottom: 25px;
+  }
+
+  .container h1, .container h2 { /* Added .container prefix for specificity */
+    text-align: center;
+    margin: 10px;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 20px; /* Added margin below image */
+    /* border-radius: 10%; */ /* Optional styling */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */ /* Optional styling */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+  }
+
+  th {
+    background-color:  #f7f5f5;
+    font-weight: bold;
+    width: 40%;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  td {
+    background-color: #fff;
+    color: #333;
+    padding-left: 5%; /* Consider if percentage is best */
+  }
+
+  /* Remove last border */
+  tr:last-child th,
+  tr:last-child td {
+      border-bottom: none;
+  }
+
+  tr:hover td { /* Hover effect on td for better feedback */
+    background-color: #f5f5f5;
+  }
+
+  .result {
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    background-color: rgba(147, 214, 208, 1); /* Your original color */
+    display: block;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  .result .confidence { /* Style for the confidence text */
+      display: block; /* Put confidence on a new line */
+      margin-top: 8px; /* Add some space above confidence */
+      font-size: 0.75em; /* Make confidence text smaller */
+      font-weight: normal; /* Make confidence text normal weight */
+  }
+
+  .details {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+  }
+
+  .details h2 {
+    margin-top: 0;
+    text-align: center; /* Center details heading */
+  }
+
+  .details p {
+    line-height: 1.5;
+  }
+
+
+  /* Responsive adjustments */
+  @media screen and (max-width: 600px) {
+    .container {
+        margin: 20px auto 0;
+        padding: 15px 20px;
+    }
+    .container .title {
+        font-size: 35px;
+        padding-bottom: 15px;
+    }
+    table {
+      border-radius: 0;
+      box-shadow: none;
+      border: 1px solid #ddd; /* Add border for mobile clarity */
+    }
+
+    th, td {
+      display: block;
+      width: 100%;
+      text-align: left; /* Left align for better readability */
+      box-sizing: border-box;
+      padding-left: 15px; /* Adjust padding */
+      border-bottom: none; /* Remove individual bottom borders */
+    }
+
+    th {
+      background-color: #e9e9e9; /* Slightly different background for header */
+      color: #333;
+      border-bottom: 1px solid #ddd; /* Border below header */
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+      border-bottom: 1px solid #eee; /* Lighter border between data */
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+     /* Add spacing between table blocks */
+    tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .result {
+        font-size: 20px;
+        padding: 15px;
+    }
+    .result .confidence {
+        font-size: 0.8em; /* Adjust confidence size for mobile */
+    }
+  }
+
+</style>
+
+<div class="container">
+  <div class="title">Brain Tumor Detection</div>
+  <!-- <h1>Pathology Report</h1> -->
+
+  <!-- Make sure filename is a valid URL or path accessible by the template -->
+  {% if filename %}
+    <img src="{{ filename }}" alt="Brain Scan Image">
+  {% else %}
+    <p style="text-align:center; color: red;">Image not available.</p>
+  {% endif %}
+
+
+  <table>
+    <tr>
+      <th>Patient ID:</th>
+      <td>{{ patient_id|default:"N/A" }}</td> <!-- Added default filter -->
+    </tr>
+    <tr>
+      <th>Name:</th>
+      <td>{{ fn|default:"N/A" }}</td>
+    </tr>
+    <tr>
+      <th>Age:</th>
+      <td>{{ age|default:"N/A" }}</td>
+    </tr>
+    <tr>
+      <th>Gender:</th>
+      <td>{{ gender|default:"N/A" }}</td>
+    </tr>
+  </table>
+
+  <div class="result">
+    REPORT : {{ data|default:"Prediction Unavailable" }}
+    <!-- Added section for prediction percentage -->
+    {% if prediction_percentage is not None %}
+      <span class="confidence">Confidence: {{ prediction_percentage|floatformat:2 }}%</span>
+    {% else %}
+      <span class="confidence">Confidence score not available.</span>
+    {% endif %}
+  </div>
+
+  <!-- Optional Details Section (currently commented out) -->
+  <!--
+  <div class="details">
+    <h2>About the Condition</h2>
+    <p>Provide relevant information about brain tumors or the specific finding here. This could be conditional based on the prediction result ({{ data }}).</p>
+    <p>For example, if a tumor is detected, explain general types or next steps. If no tumor is detected, explain what the scan shows.</p>
+  </div>
+  -->
+
+</div>
+
+{% endblock %}
