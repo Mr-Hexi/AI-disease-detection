@@ -13,3 +13,4 @@ env/
 venv/
 .env
 ".env" 
+"models/*.hdf5" 
