@@ -23,10 +23,6 @@ from django.shortcuts import redirect
 
 warnings.filterwarnings("ignore", message="A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy")
 
-from home.utils.download_model import download_model_if_needed
-
-
-
 def handle_login(request):
     if request.method == 'POST':
         loginusername = request.POST['username']
@@ -118,7 +114,7 @@ def btpred(request):
         
     
         # preds = prediction(f_path,bt_model,bt_seg_model)
-        preds,bt_pred= bt_predict(f_path,bt_model)
+        preds,bt_pred= bt_predict(f_path)
         bt_pred = float(bt_pred*100)
         print(bt_pred)
         if preds == 0:
