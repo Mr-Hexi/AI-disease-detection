@@ -23,7 +23,7 @@ from django.shortcuts import redirect
 
 warnings.filterwarnings("ignore", message="A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy")
 
-from scans.utils.download_model import download_model_if_needed
+from home.utils.download_model import download_model_if_needed
 import keras
 
 download_model_if_needed()  # Ensure model is present
