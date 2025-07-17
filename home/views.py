@@ -1,7 +1,7 @@
 import os
 import uuid
 import warnings
-from home.brain_tumor import * 
+# from home.brain_tumor import * 
 from home.predictions import *
 from .models import MedReport
 from django.utils import timezone

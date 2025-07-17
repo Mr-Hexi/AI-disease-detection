@@ -32,16 +32,8 @@ def bt_predict(img_path):
     clf_pred = model.predict(img)
     if clf_pred[0][0] < 0.5:
         print(" Please Provide Brain MRI SCAN")
-    # else:
-    # Second Masking the Area Where Tumor is Present
     if clf_pred.argmax() == 1:
-    #     img = preprocess_img(img_path=img_path, mask=True)
-    #     seg_predict = np.array(seg_model.predict(img)).squeeze().round()
-
-    #     seg_img = io.imread(img_path)
-    #     seg_img[seg_predict == 1] = (0, 255, 150)
         im = Image.open(img_path)
-    #     im.save("media/bt_seg.jpg")
         im.save("media/bt.jpg")
         return 1,clf_pred.max()
     else:
