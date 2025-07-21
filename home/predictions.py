@@ -25,21 +25,48 @@ def preprocess_img(img_path: str, mask: bool = False, resize_shape=(256, 256), n
 
 
 
+
 def bt_predict(img_path):
     model = get_model()
-    # First predicting if there is Tumor or not
-    img = preprocess_img(img_path=img_path, mask=False)
+    class_names = ['Glioma', 'Meningioma', 'Notumor', 'Pituitary']
+
+    # Preprocess image
+    img = preprocess_img(img_path=img_path, mask=False, resize_shape=(224, 224))
+
+    # Predict
     clf_pred = model.predict(img)
-    if clf_pred[0][0] < 0.5:
-        print(" Please Provide Brain MRI SCAN")
-    if clf_pred.argmax() == 1:
-        im = Image.open(img_path)
-        im.save("media/bt.jpg")
-        return 1,clf_pred.max()
-    else:
-        im = Image.open(img_path)
+    pred_idx = clf_pred.argmax()
+    pred_label = class_names[pred_idx]
+    confidence = float(clf_pred[0][pred_idx]) 
+
+    print("Predicted Class:", pred_label)
+    print("Confidence:", confidence)
+
+    im = Image.open(img_path)
+    if pred_label == 'Notumor':
         im.save("media/no_bt.jpg")
-        return 0, clf_pred.max()
+        return 0, confidence, pred_label  
+    else:
+        im.save("media/bt.jpg")
+        return 1, confidence ,pred_label
+
+
+
+    
+    
+# def bt_predict(img_path):
+#     model = get_model()
+#     # First predicting if there is Tumor or not
+#     img = preprocess_img(img_path=img_path, mask=False)
+#     clf_pred = model.predict(img)
+#     if clf_pred.argmax() == 1:
+#         im = Image.open(img_path)
+#         im.save("media/bt.jpg")
+#         return 1,clf_pred.max()
+#     else:
+#         im = Image.open(img_path)
+#         im.save("media/no_bt.jpg")
+#         return 0, clf_pred.max()
 
 
     

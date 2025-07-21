@@ -114,14 +114,14 @@ def btpred(request):
         
     
         # preds = prediction(f_path,bt_model,bt_seg_model)
-        preds,bt_pred= bt_predict(f_path)
+        preds,bt_pred,pred_label= bt_predict(f_path)
         bt_pred = float(bt_pred*100)
         print(bt_pred)
         if preds == 0:
-            result = 'No TUMOR Detected'
+            result = 'No Tumor Detected'
             fname = "media/no_bt.jpg"
         else:
-            result = 'TUMOR Detected'
+            result = f'{pred_label} Tumor Detected'
             fname = "media/bt.jpg"
             
         med_report = MedReport(
